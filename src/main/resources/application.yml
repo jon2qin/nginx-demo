@@ -1,0 +1,9 @@
+#application name
+spring:
+  application:
+    name: nginx-demo
+
+server:
+  port: 8080
+  servlet:
+    context-path: /nginx
