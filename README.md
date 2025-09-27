@@ -65,6 +65,8 @@ server {                                    # 第一个Server区块开始，表�
   - 一致性哈希
   - fair算法
 
+参考文档[proxy.md](docs/proxy.md)
+
 ## 4. gzip压缩后
 ## 5. 访问限制
 - 限制频率（正常/突发）
