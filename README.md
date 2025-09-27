@@ -52,6 +52,8 @@ server {                                    # 第一个Server区块开始，表�
 操作参考[static-proxy.md](docs/static-proxy.md)
 
 ## 2. 虚拟主机
+操作参考[virtual-host.md](docs/virtual-host.md)
+
 ## 3. 反向代理，负载均衡
 - 轮询
 - 加权轮询
