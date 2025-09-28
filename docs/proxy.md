@@ -6,57 +6,67 @@
 
 #### 1. 先准备可访问的服务
   - 在本地分别启动多个服务实例，模拟集群
-  - 为了方便观察轮询的结果，需将同一个接口路径/api/test/hello设置不同的返回值或阻塞不同的时间
+  - 为了方便观察轮询的结果，需将同一个接口路径/api/hello设置不同的返回值或阻塞不同的时间
   - 确保服务正常访问
-    - http://192.168.10.154:8081/api/test/hello
-    - http://192.168.10.154:8082/api/test/hello
-    - http://192.168.10.154:8083/api/test/hello
+    - http://localhost:8081/api/hello
+    - http://localhost:8082/api/hello
+    - http://localhost:8083/api/hello   此服务为堵塞10秒的服务
 
 #### 2. 准备好配置文件
   - [round.conf](../assets/round.conf)
 
 #### 3. 使用配置文件启动nginx
 ```text
-docker run -d \                     
-  -p 80:80 \
-  -v /xxx/assets/proxy.conf:/etc/nginx/nginx.conf \
-  --name my-nginx nginx
+docker run -d \
+    -p 80:80 \
+    -v $PWD/assets/round.conf:/etc/nginx/nginx.conf \
+    --name proxy-nginx nginx
 ```
 
 #### 4. 验证结果（多次访问检查是否轮流访问）
-http://localhost/api/test/hello
+ - http://localhost/api/hello
 
 ---
 
 ## 加权轮询
 
 #### 1. 先准备可访问的服务
-与轮询方式一致
+ - 与轮询方式一致
 
 #### 2. 准备好配置文件
-- [proxy-weighted.conf](../assets/round-weighted.conf)
+ - [round-weighted.conf](../assets/round-weighted.conf)
 
 #### 3. 使用配置文件启动nginx
-与轮询方式一致
+```text
+docker run -d \
+    -p 80:80 \
+    -v $PWD/assets/round-weighted.conf:/etc/nginx/nginx.conf \
+    --name round-weighted-nginx nginx
+```
 
 #### 4. 验证结果（多次访问检查是否按照权重轮流访问）
-http://localhost/api/test/hello
+ - http://localhost/api/hello
 
 ---
 
 ## IP哈希(由于条件有限，没有多台IP设备访问，未能实际验证)
 
 #### 1. 先准备可访问的服务
-与轮询方式一致
+ - 与轮询方式一致
 
 #### 2. 准备好配置文件
-- [hash.conf](../assets/hash.conf)
+ - [hash.conf](../assets/hash.conf)
 
 #### 3. 使用配置文件启动nginx
-与轮询方式一致
+```text
+docker run -d \
+    -p 80:80 \
+    -v $PWD/assets/hash.conf:/etc/nginx/nginx.conf \
+    --name hash-nginx nginx
+```
 
 #### 4. 验证结果（多次访问检查是否按照权重轮流访问）
-http://localhost/api/test/hello
+ - http://localhost/api/hello
 
 ---
 
@@ -66,13 +76,18 @@ http://localhost/api/test/hello
 与轮询方式一致, 只是让每个访问在服务端堵塞一段时间来增加连接的时长，以便持有服务
 
 #### 2. 准备好配置文件
-- [least.conf](../assets/least.conf)
+ - [least.conf](../assets/least.conf)
 
 #### 3. 使用配置文件启动nginx
-与轮询方式一致
+```text
+docker run -d \
+    -p 80:80 \
+    -v $PWD/assets/least.conf:/etc/nginx/nginx.conf \
+    --name least-nginx nginx
+```
 
 #### 4. 验证结果（多次访问检查是否符合预期）
-http://localhost/api/test/hello
+ - http://localhost/api/hello
 
 ---
 
@@ -82,13 +97,18 @@ http://localhost/api/test/hello
 与轮询方式一致, 只是让每个访问在服务端堵塞一段时间来增加连接的时长，以便持有服务
 
 #### 2. 准备好配置文件
-- [least-weighted.conf](../assets/least-weighted.conf)
+ - [least-weighted.conf](../assets/least-weighted.conf)
 
 #### 3. 使用配置文件启动nginx
-与轮询方式一致
+```text
+docker run -d \
+    -p 80:80 \
+    -v $PWD/assets/least-weighted.conf:/etc/nginx/nginx.conf \
+    --name least-weighted-nginx nginx
+```
 
 #### 4. 验证结果（多次访问检查是否符合预期）
-http://localhost/api/test/hello
+ - http://localhost/api/hello
 
 ---
 

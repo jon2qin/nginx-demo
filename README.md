@@ -49,7 +49,7 @@ server {                                    # 第一个Server区块开始，表�
 ---
 
 ## 1. HTTP服务器（代理静态资源）
-操作参考[static-proxy.md](docs/static-proxy.md)
+操作参考[http-server.md](docs/http-server.md)
 
 ## 2. 虚拟主机
 操作参考[virtual-host.md](docs/virtual-host.md)
