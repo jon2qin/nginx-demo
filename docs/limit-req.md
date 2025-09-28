@@ -23,10 +23,26 @@
 
 ---
 
-
-
-
 ## 限制并发数
+1. 跟“限制频率”一致
+2. 参数配置[limit-conn.conf](../assets/limit-conn.conf)
+3. 启动参数
+    ```text
+    docker run -d \
+       -p 80:80 \
+       -v $PWD/assets/limit-conn.conf:/etc/nginx/nginx.conf \
+       --name limit-conn-nginx nginx
+    ```
+4. 检查结果
+  - 同时发起 10 个请求（替换为你的URL）,观察到第三个并发请求会返回503
+  ```text
+    for i in {1..10}; do
+    curl -s -o /dev/null -w "%{http_code}\n" http://localhost/api/hello &
+    done
+   ```
+
+---
+
 ## 限制文件大小
 ## 限制IP
 ## 限制浏览器
